@@ -6,13 +6,37 @@ async function handler(req: Request): Promise<Response> {
   const url = new URL(req.url);
   
   if (url.pathname === "/") {
-    const projects: string[] = [];
+    const allProjects: string[] = [];
     for await (const entry of Deno.readDir(".")) {
       if (entry.isDirectory) {
-        projects.push(entry.name);
+        allProjects.push(entry.name);
       }
     }
-    projects.sort();
+
+    // Extract model name from folder name
+    function extractModel(folderName: string): string | null {
+      if (folderName.includes("gemini3pro")) return "gemini3pro";
+      if (folderName.includes("claude4.5thinking")) return "claude4.5thinking";
+      if (folderName.includes("glm4.6")) return "glm4.6";
+      if (folderName.includes("gptoss120B")) return "gptoss120B";
+      if (folderName.includes("gpt5.1medium")) return "gpt5.1medium";
+      return null;
+    }
+
+    // Group projects by model
+    const projectsByModel: Record<string, string[]> = {};
+    for (const project of allProjects) {
+      const model = extractModel(project);
+      if (model) {
+        if (!projectsByModel[model]) {
+          projectsByModel[model] = [];
+        }
+        projectsByModel[model].push(project);
+      }
+    }
+
+    // Sort models
+    const sortedModels = Object.keys(projectsByModel).sort();
 
     const html = `
 <!DOCTYPE html>
@@ -45,9 +69,20 @@ async function handler(req: Request): Promise<Response> {
       font-weight: 800;
       color: #333;
     }
+    .category {
+      margin-bottom: 50px;
+    }
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #333;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 10px;
+    }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 20px;
     }
     .card {
@@ -59,28 +94,30 @@ async function handler(req: Request): Promise<Response> {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 150px;
+      min-height: 120px;
     }
     .card:hover {
       transform: translateY(-4px);
       box-shadow: 0 10px 15px rgba(0,0,0,0.1);
     }
     .project-name {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
       margin-bottom: 10px;
       word-break: break-word;
+      color: #555;
     }
     .project-link {
       display: inline-block;
       text-decoration: none;
       color: white;
       background-color: var(--accent-color);
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 6px;
       text-align: center;
       font-weight: 500;
       margin-top: auto;
+      font-size: 0.9rem;
     }
     .project-link:hover {
       background-color: #0051a2;
@@ -90,14 +127,19 @@ async function handler(req: Request): Promise<Response> {
 <body>
   <div class="container">
     <h1>Project Dashboard</h1>
-    <div class="grid">
-      ${projects.map(name => `
-        <div class="card">
-          <div class="project-name">${name}</div>
-          <a href="/${name}/" class="project-link">Open Project</a>
+    ${sortedModels.map(model => `
+      <div class="category">
+        <h2 class="category-title">${model}</h2>
+        <div class="grid">
+          ${projectsByModel[model].map(project => `
+            <div class="card">
+              <div class="project-name">${project}</div>
+              <a href="/${project}/" class="project-link">Open</a>
+            </div>
+          `).join("")}
         </div>
-      `).join("")}
-    </div>
+      </div>
+    `).join("")}
   </div>
 </body>
 </html>
