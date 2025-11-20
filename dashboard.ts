@@ -2,41 +2,48 @@ import { serveDir } from "jsr:@std/http/file-server";
 
 const PORT = 8000;
 
+// Create mapping between models and their project folders
+const projectMapping: Record<string, string[]> = {};
+let mappingInitialized = false;
+
+async function initializeMapping() {
+  if (mappingInitialized) return;
+  
+  const allProjects: string[] = [];
+  for await (const entry of Deno.readDir(".")) {
+    if (entry.isDirectory) {
+      allProjects.push(entry.name);
+    }
+  }
+
+  function extractModel(folderName: string): string | null {
+    if (folderName.includes("gemini3pro")) return "gemini3pro";
+    if (folderName.includes("claude4.5thinking")) return "claude4.5thinking";
+    if (folderName.includes("glm4.6")) return "glm4.6";
+    if (folderName.includes("gptoss120B")) return "gptoss120B";
+    if (folderName.includes("gpt5.1medium")) return "gpt5.1medium";
+    return null;
+  }
+
+  for (const project of allProjects) {
+    const model = extractModel(project);
+    if (model) {
+      if (!projectMapping[model]) {
+        projectMapping[model] = [];
+      }
+      projectMapping[model].push(project);
+    }
+  }
+  
+  mappingInitialized = true;
+}
+
 async function handler(req: Request): Promise<Response> {
+  await initializeMapping();
   const url = new URL(req.url);
   
   if (url.pathname === "/") {
-    const allProjects: string[] = [];
-    for await (const entry of Deno.readDir(".")) {
-      if (entry.isDirectory) {
-        allProjects.push(entry.name);
-      }
-    }
-
-    // Extract model name from folder name
-    function extractModel(folderName: string): string | null {
-      if (folderName.includes("gemini3pro")) return "gemini3pro";
-      if (folderName.includes("claude4.5thinking")) return "claude4.5thinking";
-      if (folderName.includes("glm4.6")) return "glm4.6";
-      if (folderName.includes("gptoss120B")) return "gptoss120B";
-      if (folderName.includes("gpt5.1medium")) return "gpt5.1medium";
-      return null;
-    }
-
-    // Group projects by model
-    const projectsByModel: Record<string, string[]> = {};
-    for (const project of allProjects) {
-      const model = extractModel(project);
-      if (model) {
-        if (!projectsByModel[model]) {
-          projectsByModel[model] = [];
-        }
-        projectsByModel[model].push(project);
-      }
-    }
-
-    // Sort models
-    const sortedModels = Object.keys(projectsByModel).sort();
+    const sortedModels = Object.keys(projectMapping).sort();
 
     const html = `
 <!DOCTYPE html>
@@ -127,13 +134,13 @@ async function handler(req: Request): Promise<Response> {
 <body>
   <div class="container">
     <h1>Global Sales Project Dashboard</h1>
-    ${sortedModels.map(model => `
+    ${sortedModels.map((model, modelIdx) => `
       <div class="category">
         <h2 class="category-title">${model}</h2>
         <div class="grid">
-          ${projectsByModel[model].map(project => `
+          ${projectMapping[model].map((project, projIdx) => `
             <div class="card">
-              <a href="/${project}/" class="project-link">Open</a>
+              <a href="/p/${modelIdx}-${projIdx}/" class="project-link">Open</a>
             </div>
           `).join("")}
         </div>
@@ -149,10 +156,31 @@ async function handler(req: Request): Promise<Response> {
     });
   }
 
+  // Handle project routes with obfuscated paths
+  const pathMatch = url.pathname.match(/^\/p\/(\d+)-(\d+)(\/.*)$/);
+  if (pathMatch) {
+    const modelIdx = parseInt(pathMatch[1]);
+    const projIdx = parseInt(pathMatch[2]);
+    const subPath = pathMatch[3];
+    
+    const sortedModels = Object.keys(projectMapping).sort();
+    const model = sortedModels[modelIdx];
+    if (model && projectMapping[model][projIdx]) {
+      const actualProject = projectMapping[model][projIdx];
+      const newUrl = new URL(req.url);
+      newUrl.pathname = `/${actualProject}${subPath}`;
+      
+      return serveDir(new Request(newUrl, req), {
+        fsRoot: ".",
+        showDirListing: false,
+      });
+    }
+  }
+
   // Serve static files for any other path
   return serveDir(req, {
     fsRoot: ".",
-    showDirListing: true,
+    showDirListing: false,
   });
 }
 
