@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Products - Premium Marketplace</title>
+    
+    <!-- External CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/3d-effects.css">
+</head>
+<body>
+    <!-- Floating Particles Background -->
+    <div id="particles-container"></div>
+    
+    <!-- 3D Mouse Follower -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar glass-effect">
+        <div class="nav-container">
+            <div class="logo" data-aos="fade-right">
+                <i class="fas fa-globe-americas"></i>
+                <span>Global<span class="gradient-text">Products</span></span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li data-aos="fade-down" data-aos-delay="100"><a href="index.html" class="active">Home</a></li>
+                <li data-aos="fade-down" data-aos-delay="200"><a href="products.html">Products</a></li>
+                <li data-aos="fade-down" data-aos-delay="300"><a href="about.html">About</a></li>
+                <li data-aos="fade-down" data-aos-delay="400"><a href="contact.html">Contact</a></li>
+                <li data-aos="fade-down" data-aos-delay="500"><a href="#" class="btn-gradient">Get Started</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section with 3D Effects -->
+    <section class="hero-section">
+        <div class="hero-3d-scene" id="hero-3d-scene">
+            <div class="floating-product floating-1" data-depth="0.2">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" alt="Product">
+            </div>
+            <div class="floating-product floating-2" data-depth="0.4">
+                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400" alt="Product">
+            </div>
+            <div class="floating-product floating-3" data-depth="0.6">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" alt="Product">
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title" data-aos="zoom-in" data-aos-duration="1000">
+                <span class="word-animation">Discover</span>
+                <span class="word-animation" style="animation-delay: 0.2s">Premium</span>
+                <span class="word-animation gradient-text" style="animation-delay: 0.4s">Products</span>
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="600">
+                Explore our curated collection of world-class products from leading brands
+            </p>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="800">
+                <a href="products.html" class="btn btn-primary btn-3d">
+                    <span>Explore Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#featured" class="btn btn-secondary btn-3d">
+                    <span>Learn More</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1200">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Categories with 3D Cards -->
+    <section class="categories-section" id="featured">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="gradient-text">Featured</span> Categories
+            </h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Browse our extensive range of product categories
+            </p>
+            
+            <div class="categories-grid">
+                <div class="category-card card-3d" data-aos="flip-left" data-aos-delay="100">
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600" alt="Electronics" class="card-bg">
+                        <div class="card-content">
+                            <h3>Electronics</h3>
+                            <p>Latest gadgets and technology</p>
+                            <a href="products.html?category=electronics" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-card card-3d" data-aos="flip-left" data-aos-delay="200">
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600" alt="Fashion" class="card-bg">
+                        <div class="card-content">
+                            <h3>Fashion</h3>
+                            <p>Trendy clothing and accessories</p>
+                            <a href="products.html?category=fashion" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-card card-3d" data-aos="flip-left" data-aos-delay="300">
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1556912167-f556f1f39fdf?w=600" alt="Home & Living" class="card-bg">
+                        <div class="card-content">
+                            <h3>Home & Living</h3>
+                            <p>Beautiful home essentials</p>
+                            <a href="products.html?category=home" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-card card-3d" data-aos="flip-left" data-aos-delay="400">
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600" alt="Sports" class="card-bg">
+                        <div class="card-content">
+                            <h3>Sports & Fitness</h3>
+                            <p>Professional equipment</p>
+                            <a href="products.html?category=sports" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-card card-3d" data-aos="flip-left" data-aos-delay="500">
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600" alt="Jewelry" class="card-bg">
+                        <div class="card-content">
+                            <h3>Jewelry</h3>
+                            <p>Elegant and luxurious pieces</p>
+                            <a href="products.html?category=jewelry" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-card card-3d" data-aos="flip-left" data-aos-delay="600">
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=600" alt="Books" class="card-bg">
+                        <div class="card-content">
+                            <h3>Books & Media</h3>
+                            <p>Knowledge and entertainment</p>
+                            <a href="products.html?category=books" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Best Sellers with Parallax -->
+    <section class="bestsellers-section parallax-section">
+        <div class="parallax-layer layer-bg" data-speed="0.5">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920" alt="Background">
+        </div>
+        
+        <div class="container relative z-10">
+            <h2 class="section-title text-white" data-aos="fade-up">
+                Best <span class="gradient-text">Sellers</span>
+            </h2>
+            
+            <div class="products-carousel">
+                <div class="product-card-3d" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500" alt="Product">
+                        <div class="product-overlay">
+                            <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                            <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                            <button class="btn-icon"><i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Sunglasses</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(4.5)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">$129.99</span>
+                            <span class="original-price">$199.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card-3d" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="product-badge new-badge">New</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="Product">
+                        <div class="product-overlay">
+                            <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                            <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                            <button class="btn-icon"><i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxury Watch</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(5.0)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">$599.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card-3d" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="product-badge sale-badge">-30%</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Product">
+                        <div class="product-overlay">
+                            <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                            <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                            <button class="btn-icon"><i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Wireless Headphones</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(4.0)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">$89.99</span>
+                            <span class="original-price">$129.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card-3d" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500" alt="Product">
+                        <div class="product-overlay">
+                            <button class="btn-icon"><i class="fas fa-heart"></i></button>
+                            <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                            <button class="btn-icon"><i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Designer Sneakers</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(4.7)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">$149.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section with Animated Icons -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Free Shipping</h3>
+                    <p>On orders over $50</p>
+                </div>
+                
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Payment</h3>
+                    <p>100% protected transactions</p>
+                </div>
+                
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3>Easy Returns</h3>
+                    <p>30-day return policy</p>
+                </div>
+                
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Customer service anytime</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter-section glass-effect-dark">
+        <div class="container">
+            <div class="newsletter-content" data-aos="zoom-in">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for exclusive deals and updates</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn-gradient">
+                        Subscribe <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-globe-americas"></i> GlobalProducts</h3>
+                    <p>Your trusted marketplace for premium products from around the world.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Track Order</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="400">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Market St, Global City</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@globalproducts.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 GlobalProducts. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- External JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/3d-effects.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Product Sales - Gravity Experience</title>
+    
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'glass': 'rgba(255, 255, 255, 0.1)',
+                        'glass-dark': 'rgba(0, 0, 0, 0.3)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-white overflow-hidden h-screen w-screen select-none">
+
+    <!-- Three.js Background Container -->
+    <div id="canvas-container" class="fixed top-0 left-0 w-full h-full -z-10"></div>
+
+    <!-- UI Overlay (Static Elements like Header/Instructions) -->
+    <div class="fixed top-0 left-0 w-full p-6 z-50 pointer-events-none flex justify-between items-start">
+        <div>
+            <h1 class="text-4xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-lg">
+                GLOBAL SALES
+            </h1>
+            <p class="text-sm text-gray-400 mt-2 opacity-80">Drag, Throw, Discover.</p>
+        </div>
+        
+        <div class="pointer-events-auto flex gap-4">
+            <button id="reset-gravity" class="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 transition border border-white/20">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+            <button id="toggle-gravity" class="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 transition border border-white/20">
+                <i class="fas fa-magnet"></i> Zero G
+            </button>
+        </div>
+    </div>
+
+    <!-- The Physics Container -->
+    <!-- Elements inside here will be controlled by Matter.js -->
+    <div id="physics-container" class="absolute top-0 left-0 w-full h-full z-10 overflow-hidden">
+        <!-- Elements will be injected here by JS -->
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor" class="fixed w-8 h-8 border-2 border-blue-400 rounded-full pointer-events-none z-[100] mix-blend-difference transition-transform duration-75 ease-out -translate-x-1/2 -translate-y-1/2 hidden md:block"></div>
+    <div id="cursor-dot" class="fixed w-2 h-2 bg-blue-400 rounded-full pointer-events-none z-[100] mix-blend-difference -translate-x-1/2 -translate-y-1/2 hidden md:block"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

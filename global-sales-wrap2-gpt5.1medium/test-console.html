@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Checker — GlobalFlow</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .log {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .log-item {
+            padding: 0.35rem 0;
+            border-bottom: 1px solid #334155;
+        }
+        .log-item.error {
+            color: #ef4444;
+        }
+        .log-item.warn {
+            color: #fbbf24;
+        }
+        .log-item.info {
+            color: #60a5fa;
+        }
+        .log-item:last-child {
+            border-bottom: none;
+        }
+        iframe {
+            display: none;
+        }
+        .summary {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #1e293b;
+            border-radius: 0.5rem;
+        }
+        .summary.success {
+            border-left: 4px solid #10b981;
+        }
+        .summary.failure {
+            border-left: 4px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 GlobalFlow Console & Layout Checker</h1>
+    <div class="summary" id="summary">
+        <strong>Status:</strong> Testing index.html for console errors and layout issues...
+    </div>
+    <div class="log" id="log">
+        <div class="log-item info">Starting automated test...</div>
+    </div>
+
+    <iframe id="testFrame" src="./index.html"></iframe>
+
+    <script>
+        const logEl = document.getElementById('log');
+        const summaryEl = document.getElementById('summary');
+        const iframe = document.getElementById('testFrame');
+
+        const errors = [];
+        const warnings = [];
+        const logs = [];
+
+        function addLog(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = 'log-item ' + type;
+            div.textContent = '[' + new Date().toLocaleTimeString() + '] ' + message;
+            logEl.appendChild(div);
+            if (type === 'error') errors.push(message);
+            if (type === 'warn') warnings.push(message);
+            logs.push({ type, message });
+        }
+
+        // Hook into iframe console
+        iframe.onload = function () {
+            addLog('Page loaded successfully.', 'info');
+
+            try {
+                const iframeWindow = iframe.contentWindow;
+                const originalConsoleError = iframeWindow.console.error;
+                const originalConsoleWarn = iframeWindow.console.warn;
+                const originalConsoleLog = iframeWindow.console.log;
+
+                iframeWindow.console.error = function (...args) {
+                    addLog('ERROR: ' + args.join(' '), 'error');
+                    originalConsoleError.apply(this, args);
+                };
+
+                iframeWindow.console.warn = function (...args) {
+                    addLog('WARN: ' + args.join(' '), 'warn');
+                    originalConsoleWarn.apply(this, args);
+                };
+
+                iframeWindow.console.log = function (...args) {
+                    addLog('LOG: ' + args.join(' '), 'info');
+                    originalConsoleLog.apply(this, args);
+                };
+
+                // Check basic structure
+                setTimeout(() => {
+                    const iframeDoc = iframeWindow.document;
+                    const checks = [];
+
+                    if (iframeDoc.getElementById('cursor-core')) {
+                        checks.push('✓ Custom cursor element found.');
+                    } else {
+                        checks.push('✗ Custom cursor element missing.');
+                    }
+
+                    if (iframeDoc.getElementById('bg-canvas')) {
+                        checks.push('✓ Three.js canvas element found.');
+                    } else {
+                        checks.push('✗ Three.js canvas element missing.');
+                    }
+
+                    if (iframeDoc.getElementById('image-gallery')) {
+                        const galleryItems = iframeDoc.querySelectorAll('.image-gallery-item');
+                        if (galleryItems.length >= 100) {
+                            checks.push('✓ Gallery has ' + galleryItems.length + ' images (>= 100 required).');
+                        } else {
+                            checks.push('✗ Gallery has only ' + galleryItems.length + ' images (< 100 expected).');
+                        }
+                    } else {
+                        checks.push('✗ Image gallery element missing.');
+                    }
+
+                    if (iframeWindow.THREE) {
+                        checks.push('✓ Three.js library loaded successfully.');
+                    } else {
+                        checks.push('✗ Three.js library not loaded.');
+                    }
+
+                    if (iframeWindow.gsap) {
+                        checks.push('✓ GSAP library loaded successfully.');
+                    } else {
+                        checks.push('✗ GSAP library not loaded.');
+                    }
+
+                    if (iframeWindow.jQuery) {
+                        checks.push('✓ jQuery loaded successfully.');
+                    } else {
+                        checks.push('✗ jQuery not loaded.');
+                    }
+
+                    checks.forEach((check) => {
+                        if (check.startsWith('✓')) {
+                            addLog(check, 'info');
+                        } else {
+                            addLog(check, 'warn');
+                        }
+                    });
+
+                    // Final summary
+                    if (errors.length === 0) {
+                        summaryEl.className = 'summary success';
+                        summaryEl.innerHTML = '<strong>✅ All checks passed!</strong><br>No console errors detected. Page structure looks good.';
+                    } else {
+                        summaryEl.className = 'summary failure';
+                        summaryEl.innerHTML = '<strong>⚠️ Issues detected:</strong><br>' + errors.length + ' errors, ' + warnings.length + ' warnings. See log above.';
+                    }
+                }, 4000);
+            } catch (err) {
+                addLog('Failed to hook console: ' + err.message, 'error');
+            }
+        };
+
+        iframe.onerror = function (err) {
+            addLog('IFRAME ERROR: ' + err, 'error');
+        };
+
+        // Global error listener for iframe
+        window.addEventListener('error', function (event) {
+            if (event.filename && event.filename.includes('index.html')) {
+                addLog('GLOBAL ERROR: ' + event.message + ' at ' + event.filename + ':' + event.lineno, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

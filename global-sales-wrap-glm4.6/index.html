@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Global Products — Hyper Visual Commerce</title>
+  <meta name="description" content="A stunning static website for global product sales with advanced 2D/3D/scroll effects and 100+ high-quality visuals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef9ff',
+              100: '#d6f1ff',
+              200: '#aee1ff',
+              300: '#7eccff',
+              400: '#49b0ff',
+              500: '#1e92ff',
+              600: '#0e71e6',
+              700: '#0a58b4',
+              800: '#0b4b8f',
+              900: '#0e3f74'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- three.js for subtle 3D background -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.45/bundled/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body class="bg-slate-950 text-white antialiased">
+  <!-- Floating canvas background (three.js) -->
+  <canvas id="bg3d" class="fixed inset-0 -z-10"></canvas>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-slate-900/50 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 shadow-lg shadow-brand-500/30 group-hover:scale-110 transition"></div>
+        <span class="font-extrabold tracking-tight text-xl">HyperCommerce</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#catalog" class="hover:text-brand-300">Catalog</a>
+        <a href="#collections" class="hover:text-brand-300">Collections</a>
+        <a href="#partners" class="hover:text-brand-300">Partners</a>
+        <a href="#contact" class="hover:text-brand-300">Contact</a>
+        <a href="#links" class="hover:text-brand-300">Links</a>
+        <a href="#" class="px-4 py-2 rounded-full bg-white text-slate-900 font-semibold hover:scale-105 transition">Start Buying</a>
+      </nav>
+      <button id="menuBtn" class="md:hidden text-2xl"><i class="bi bi-list"></i></button>
+    </div>
+    <div id="mobileNav" class="md:hidden hidden px-6 pb-4 space-y-2 text-sm">
+      <a href="#catalog" class="block">Catalog</a>
+      <a href="#collections" class="block">Collections</a>
+      <a href="#partners" class="block">Partners</a>
+      <a href="#contact" class="block">Contact</a>
+      <a href="#links" class="block">Links</a>
+    </div>
+  </header>
+
+  <!-- Hero: Anti-gravity inspired -->
+  <section class="relative min-h-screen flex items-center" id="hero">
+    <div class="max-w-7xl mx-auto px-6 pt-24 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl sm:text-6xl font-extrabold leading-tight">
+          Global product sales with mind‑bending visual effects
+        </h1>
+        <p class="mt-6 text-white/70 text-lg">
+          Browse thousands of products across every category. Smooth, responsive, and purely static — no backend required.
+        </p>
+        <div class="mt-8 flex items-center gap-4">
+          <a href="#catalog" class="px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-white font-semibold shadow-lg shadow-brand-500/30 transition hover:-translate-y-0.5">Explore catalog</a>
+          <a href="#links" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition hover:-translate-y-0.5">Company links</a>
+        </div>
+        <div class="mt-10 flex gap-6 text-white/60 text-sm">
+          <div class="flex items-center gap-2"><i class="bi bi-shield-check text-brand-300"></i>Secure</div>
+          <div class="flex items-center gap-2"><i class="bi bi-lightning-charge text-brand-300"></i>Fast</div>
+          <div class="flex items-center gap-2"><i class="bi bi-stars text-brand-300"></i>Beautiful</div>
+        </div>
+      </div>
+      <div class="relative">
+        <div id="antigravity" class="relative h-[480px] sm:h-[560px] rounded-3xl overflow-hidden bg-gradient-to-tr from-slate-900 to-slate-800 border border-white/10">
+          <div class="pointer-events-none absolute inset-0" id="ag-layer"></div>
+          <div class="absolute inset-0" id="ag-items"></div>
+          <div class="absolute bottom-4 left-4 text-xs text-white/60">Move mouse — items repel and dance</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collections (parallax) -->
+  <section id="collections" class="relative py-24">
+    <div class="parallax" data-depth="0.2"></div>
+    <div class="parallax parallax-2" data-depth="0.4"></div>
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl sm:text-5xl font-extrabold mb-10">Curated Collections</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="collection-card">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1400&auto=format&fit=crop" alt="Tech" />
+          <div class="overlay">Tech Essentials</div>
+        </div>
+        <div class="collection-card">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1400&auto=format&fit=crop" alt="Office" />
+          <div class="overlay">Work & Office</div>
+        </div>
+        <div class="collection-card">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1400&auto=format&fit=crop" alt="Audio" />
+          <div class="overlay">Audio & Music</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog (100+ images) -->
+  <section id="catalog" class="py-24 bg-slate-900/40 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-end justify-between mb-8">
+        <h2 class="text-3xl sm:text-5xl font-extrabold">Explore Catalog</h2>
+        <div class="text-white/60 text-sm">100+ high-quality images loaded via CDN</div>
+      </div>
+      <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- Partners / Links -->
+  <section id="partners" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl sm:text-5xl font-extrabold mb-8">Partners</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 opacity-80">
+        <div class="partner">Amazon</div>
+        <div class="partner">eBay</div>
+        <div class="partner">Shopify</div>
+        <div class="partner">Stripe</div>
+        <div class="partner">PayPal</div>
+        <div class="partner">DHL</div>
+        <div class="partner">FedEx</div>
+        <div class="partner">UPS</div>
+        <div class="partner">Meta</div>
+        <div class="partner">Google</div>
+        <div class="partner">Apple</div>
+        <div class="partner">Microsoft</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Links -->
+  <section id="links" class="py-24 bg-slate-900/40 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10">
+      <div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold mb-4">Company Channels</h2>
+        <p class="text-white/70">Direct links for your company presence and support.</p>
+        <ul class="mt-6 space-y-3 text-white/80">
+          <li><i class="bi bi-globe-americas text-brand-300"></i> <a href="#" class="hover:underline">Official Website</a></li>
+          <li><i class="bi bi-shop text-brand-300"></i> <a href="#" class="hover:underline">Marketplace Store</a></li>
+          <li><i class="bi bi-people text-brand-300"></i> <a href="#" class="hover:underline">Social Media</a></li>
+          <li><i class="bi bi-telephone text-brand-300"></i> <a href="#contact" class="hover:underline">Contact & Support</a></li>
+          <li><i class="bi bi-newspaper text-brand-300"></i> <a href="#" class="hover:underline">Press & Media Kit</a></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <a class="link-tile" href="#"><i class="bi bi-instagram"></i>Instagram</a>
+        <a class="link-tile" href="#"><i class="bi bi-tiktok"></i>TikTok</a>
+        <a class="link-tile" href="#"><i class="bi bi-youtube"></i>YouTube</a>
+        <a class="link-tile" href="#"><i class="bi bi-twitter-x"></i>Twitter</a>
+        <a class="link-tile" href="#"><i class="bi bi-linkedin"></i>LinkedIn</a>
+        <a class="link-tile" href="#"><i class="bi bi-facebook"></i>Facebook</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl sm:text-5xl font-extrabold mb-6">Let’s work together</h2>
+      <p class="text-white/70 mb-8">Partner with us to sell globally. We support any product category with a stunning, fast, static presence.</p>
+      <form class="grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto">
+        <input type="text" class="form-input" placeholder="Your name" />
+        <input type="email" class="form-input" placeholder="Email" />
+        <button type="button" class="px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-white font-semibold">Request demo</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="py-10 border-t border-white/10 text-center text-white/60 text-sm">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-3 flex justify-center gap-4">
+        <a href="#" class="hover:text-white"><i class="bi bi-shield-lock"></i> Privacy</a>
+        <a href="#" class="hover:text-white"><i class="bi bi-file-earmark-text"></i> Terms</a>
+        <a href="#" class="hover:text-white"><i class="bi bi-patch-question"></i> Help</a>
+      </div>
+      <div>© <span id="year"></span> HyperCommerce — Static global sales site</div>
+    </div>
+  </footer>
+
+  <script src="./assets/app.js"></script>
+</body>
+</html>

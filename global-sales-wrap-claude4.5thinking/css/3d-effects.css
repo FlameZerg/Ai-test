@@ -1,0 +1,522 @@
+/* ==================== 3D EFFECTS & TRANSFORMATIONS ==================== */
+
+/* 3D Card Flip Effect */
+.card-3d {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.card-3d:hover {
+    transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+}
+
+/* 3D Lift Effect */
+.lift-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+}
+
+.lift-3d:hover {
+    transform: translateZ(50px) scale(1.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* 3D Rotate on Hover */
+.rotate-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+}
+
+.rotate-3d:hover {
+    transform: rotateY(180deg);
+}
+
+/* 3D Perspective Shift */
+.perspective-shift {
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.perspective-shift:hover {
+    transform: perspective(1000px) rotateX(15deg) translateZ(20px);
+}
+
+/* 3D Cube Effect */
+.cube-3d {
+    transform-style: preserve-3d;
+    animation: cube-rotate 20s linear infinite;
+}
+
+@keyframes cube-rotate {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* 3D Floating Card */
+.float-3d {
+    transform-style: preserve-3d;
+    animation: float-3d 3s ease-in-out infinite;
+}
+
+@keyframes float-3d {
+    0%, 100% {
+        transform: translateY(0) rotateX(0deg) rotateY(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+    }
+    50% {
+        transform: translateY(-10px) rotateX(-5deg) rotateY(-5deg);
+    }
+    75% {
+        transform: translateY(-30px) rotateX(3deg) rotateY(3deg);
+    }
+}
+
+/* 3D Tilt Effect */
+.tilt-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.tilt-3d:hover {
+    transform: perspective(1000px) rotateY(15deg) scale(1.05);
+}
+
+/* 3D Push Effect */
+.push-3d {
+    transform: translateZ(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.push-3d:active {
+    transform: translateZ(-50px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 3D Flip Horizontal */
+.flip-horizontal-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.flip-horizontal-3d:hover {
+    transform: rotateY(180deg);
+}
+
+/* 3D Flip Vertical */
+.flip-vertical-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.flip-vertical-3d:hover {
+    transform: rotateX(180deg);
+}
+
+/* 3D Bounce Effect */
+@keyframes bounce-3d {
+    0%, 100% {
+        transform: translateY(0) translateZ(0);
+    }
+    50% {
+        transform: translateY(-30px) translateZ(50px);
+    }
+}
+
+.bounce-3d {
+    animation: bounce-3d 2s ease-in-out infinite;
+}
+
+/* 3D Swing Effect */
+@keyframes swing-3d {
+    0%, 100% {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    25% {
+        transform: perspective(1000px) rotateY(20deg);
+    }
+    75% {
+        transform: perspective(1000px) rotateY(-20deg);
+    }
+}
+
+.swing-3d {
+    animation: swing-3d 3s ease-in-out infinite;
+}
+
+/* 3D Rotate Continuous */
+@keyframes rotate-continuous-3d {
+    from {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    to {
+        transform: perspective(1000px) rotateY(360deg);
+    }
+}
+
+.rotate-continuous-3d {
+    animation: rotate-continuous-3d 10s linear infinite;
+}
+
+/* 3D Wave Effect */
+@keyframes wave-3d {
+    0%, 100% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    25% {
+        transform: perspective(1000px) rotateX(10deg) rotateY(10deg) rotateZ(5deg);
+    }
+    50% {
+        transform: perspective(1000px) rotateX(-10deg) rotateY(-10deg) rotateZ(-5deg);
+    }
+    75% {
+        transform: perspective(1000px) rotateX(5deg) rotateY(5deg) rotateZ(3deg);
+    }
+}
+
+.wave-3d {
+    animation: wave-3d 4s ease-in-out infinite;
+}
+
+/* 3D Pulse Effect */
+@keyframes pulse-3d {
+    0%, 100% {
+        transform: scale(1) translateZ(0);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.1) translateZ(30px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.pulse-3d {
+    animation: pulse-3d 2s ease-in-out infinite;
+}
+
+/* 3D Orbit Effect */
+@keyframes orbit-3d {
+    0% {
+        transform: perspective(1000px) rotateY(0deg) translateX(0);
+    }
+    25% {
+        transform: perspective(1000px) rotateY(90deg) translateX(50px);
+    }
+    50% {
+        transform: perspective(1000px) rotateY(180deg) translateX(0);
+    }
+    75% {
+        transform: perspective(1000px) rotateY(270deg) translateX(-50px);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(360deg) translateX(0);
+    }
+}
+
+.orbit-3d {
+    animation: orbit-3d 8s linear infinite;
+}
+
+/* 3D Depth Layers */
+.layer-1 {
+    transform: translateZ(10px);
+}
+
+.layer-2 {
+    transform: translateZ(20px);
+}
+
+.layer-3 {
+    transform: translateZ(30px);
+}
+
+.layer-4 {
+    transform: translateZ(40px);
+}
+
+.layer-5 {
+    transform: translateZ(50px);
+}
+
+/* 3D Book Open Effect */
+@keyframes book-open {
+    from {
+        transform: perspective(2000px) rotateY(-90deg);
+    }
+    to {
+        transform: perspective(2000px) rotateY(0deg);
+    }
+}
+
+.book-open-3d {
+    animation: book-open 1s ease forwards;
+}
+
+/* 3D Fold Effect */
+@keyframes fold-3d {
+    0% {
+        transform: perspective(1000px) rotateX(0deg);
+    }
+    50% {
+        transform: perspective(1000px) rotateX(90deg) translateY(-50px);
+    }
+    100% {
+        transform: perspective(1000px) rotateX(180deg) translateY(-100px);
+    }
+}
+
+.fold-3d {
+    animation: fold-3d 2s ease infinite;
+}
+
+/* 3D Spiral Effect */
+@keyframes spiral-3d {
+    0% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1);
+    }
+    100% {
+        transform: perspective(1000px) rotateX(720deg) rotateY(360deg) scale(0.5);
+    }
+}
+
+.spiral-3d {
+    animation: spiral-3d 3s ease-in-out infinite alternate;
+}
+
+/* 3D Parallax Layers */
+.parallax-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.parallax-3d .layer {
+    position: absolute;
+    transition: transform 0.1s ease-out;
+}
+
+/* 3D Hover Lift with Shadow */
+.hover-lift-3d {
+    transform: translateZ(0);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hover-lift-3d:hover {
+    transform: translateZ(50px) scale(1.05);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+/* 3D Accordion Effect */
+@keyframes accordion-3d {
+    0%, 100% {
+        transform: perspective(1000px) rotateX(0deg);
+        height: auto;
+    }
+    50% {
+        transform: perspective(1000px) rotateX(-90deg);
+        height: 0;
+    }
+}
+
+/* 3D Prism Effect */
+.prism-3d {
+    transform-style: preserve-3d;
+    animation: prism-rotate 15s linear infinite;
+}
+
+@keyframes prism-rotate {
+    0% {
+        transform: perspective(1500px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    33% {
+        transform: perspective(1500px) rotateX(360deg) rotateY(0deg) rotateZ(0deg);
+    }
+    66% {
+        transform: perspective(1500px) rotateX(360deg) rotateY(360deg) rotateZ(0deg);
+    }
+    100% {
+        transform: perspective(1500px) rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    }
+}
+
+/* 3D Shimmer Depth */
+@keyframes shimmer-depth-3d {
+    0% {
+        transform: perspective(1000px) translateZ(0);
+        opacity: 0.5;
+    }
+    50% {
+        transform: perspective(1000px) translateZ(50px);
+        opacity: 1;
+    }
+    100% {
+        transform: perspective(1000px) translateZ(0);
+        opacity: 0.5;
+    }
+}
+
+.shimmer-depth-3d {
+    animation: shimmer-depth-3d 3s ease-in-out infinite;
+}
+
+/* 3D Matrix Effect */
+@keyframes matrix-3d {
+    0% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+    }
+    25% {
+        transform: perspective(1000px) rotateX(90deg) rotateY(0deg);
+    }
+    50% {
+        transform: perspective(1000px) rotateX(90deg) rotateY(90deg);
+    }
+    75% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(90deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+    }
+}
+
+.matrix-3d {
+    animation: matrix-3d 4s ease-in-out infinite;
+}
+
+/* 3D Glitch Effect */
+@keyframes glitch-3d {
+    0%, 100% {
+        transform: perspective(1000px) translate(0, 0) rotateY(0deg);
+    }
+    20% {
+        transform: perspective(1000px) translate(-5px, 5px) rotateY(5deg);
+    }
+    40% {
+        transform: perspective(1000px) translate(5px, -5px) rotateY(-5deg);
+    }
+    60% {
+        transform: perspective(1000px) translate(-5px, -5px) rotateY(5deg);
+    }
+    80% {
+        transform: perspective(1000px) translate(5px, 5px) rotateY(-5deg);
+    }
+}
+
+.glitch-3d {
+    animation: glitch-3d 0.3s ease-in-out;
+}
+
+/* 3D Hover Scale Depth */
+.hover-scale-depth {
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.hover-scale-depth:hover {
+    transform: perspective(1000px) scale(1.2) translateZ(100px);
+}
+
+/* 3D Magnetic Effect */
+.magnetic-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+}
+
+/* This will be controlled by JavaScript for mouse tracking */
+
+/* 3D Hologram Effect */
+@keyframes hologram-3d {
+    0%, 100% {
+        transform: perspective(1000px) rotateY(-15deg);
+        opacity: 0.8;
+    }
+    50% {
+        transform: perspective(1000px) rotateY(15deg);
+        opacity: 1;
+    }
+}
+
+.hologram-3d {
+    animation: hologram-3d 3s ease-in-out infinite;
+    background: linear-gradient(135deg, 
+        rgba(102, 126, 234, 0.3) 0%,
+        rgba(118, 75, 162, 0.3) 100%);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 3D Tilt on Scroll */
+.scroll-tilt-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+}
+
+/* 3D Explode Effect */
+@keyframes explode-3d {
+    0% {
+        transform: perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: perspective(1000px) scale(3) rotateX(360deg) rotateY(360deg);
+        opacity: 0;
+    }
+}
+
+.explode-3d {
+    animation: explode-3d 1s ease-out;
+}
+
+/* 3D Implode Effect */
+@keyframes implode-3d {
+    0% {
+        transform: perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: perspective(1000px) scale(0) rotateX(360deg) rotateY(360deg);
+        opacity: 0;
+    }
+}
+
+.implode-3d {
+    animation: implode-3d 1s ease-in;
+}
+
+/* 3D Breathing Effect */
+@keyframes breathing-3d {
+    0%, 100% {
+        transform: perspective(1000px) scale(1) translateZ(0);
+    }
+    50% {
+        transform: perspective(1000px) scale(1.1) translateZ(20px);
+    }
+}
+
+.breathing-3d {
+    animation: breathing-3d 3s ease-in-out infinite;
+}
+
+/* 3D Shadow Depth */
+.shadow-depth-3d {
+    box-shadow: 
+        0 1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 10px rgba(0, 0, 0, 0.3),
+        0 10px 20px rgba(0, 0, 0, 0.2),
+        0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateZ(0);
+    transition: all 0.3s ease;
+}
+
+.shadow-depth-3d:hover {
+    box-shadow: 
+        0 2px 0 rgba(255, 255, 255, 0.15),
+        0 4px 20px rgba(0, 0, 0, 0.4),
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 40px 80px rgba(0, 0, 0, 0.25);
+    transform: translateZ(30px);
+}

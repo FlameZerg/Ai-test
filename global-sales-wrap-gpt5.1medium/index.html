@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlobalSales Hub — Infinite Products, One Platform</title>
+  <meta name="description" content="GlobalSales Hub is a high-performance static marketplace front-end showcasing products worldwide with stunning visuals and advanced interactions." />
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+          },
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              300: '#67e8f9',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#164e63',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkAJ0H+0zLh9xKy0XrHn8d6kXhjQVhDnNQdCboFZ4Z3e+P1dZ8W5xJd2w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+  <!-- Local styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-50 font-sans overflow-x-hidden">
+  <!-- Global background canvas for subtle effects -->
+  <div id="bg-orbit-layer" aria-hidden="true"></div>
+  <div id="mouse-orbit" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="fixed inset-x-0 top-0 z-40 border-b border-white/5 backdrop-blur-xl bg-slate-950/70">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
+      <div class="flex items-center gap-3">
+        <div class="relative flex items-center justify-center h-9 w-9">
+          <span class="absolute inset-0 rounded-xl bg-gradient-to-tr from-brand-400 via-fuchsia-500 to-amber-400 blur-md opacity-80"></span>
+          <span class="relative flex items-center justify-center h-9 w-9 rounded-xl bg-slate-950 border border-white/20 text-lg font-black tracking-tight">G</span>
+        </div>
+        <div class="leading-none">
+          <div class="font-semibold tracking-tight">GlobalSales Hub</div>
+          <div class="text-[11px] text-slate-400 uppercase tracking-[0.2em]">Infinite catalog</div>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+        <a href="#sections" class="nav-link">Solutions</a>
+        <a href="#gallery" class="nav-link">Visual catalog</a>
+        <a href="#channels" class="nav-link">Company channels</a>
+        <a href="#analytics" class="nav-link">Analytics</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button class="ghost-btn hidden sm:inline-flex">
+          <i class="fa-solid fa-globe text-xs mr-1.5"></i>
+          View as buyer
+        </button>
+        <button class="primary-btn" data-magnetic>
+          <span>Launch merchant portal</span>
+          <span class="ml-1.5 text-xs"><i class="fa-solid fa-arrow-right"></i></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-20">
+    <!-- Hero section with antigravity-inspired field -->
+    <section id="hero" class="relative isolate overflow-hidden">
+      <div class="hero-gradient" aria-hidden="true"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10 grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-full border border-white/10 bg-slate-900/70 text-xs text-slate-300 mb-5 shadow-lg shadow-cyan-500/10">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Realtime global storefront · 0 backend required</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 leading-tight">
+            Sell <span class="text-brand-300">anything</span>, to <span class="underline decoration-brand-400/60 decoration-wavy underline-offset-4">anyone</span>, from <span class="text-fuchsia-400">anywhere</span>.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 max-w-xl mb-6">
+            A pure front-end global marketplace shell with cinematic visuals, gravity-bending interactions, and an infinite, image-rich catalog. Host it on any static provider and plug in your APIs when ready.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 mb-6">
+            <button class="primary-btn text-base px-5 py-3" data-magnetic>
+              <i class="fa-solid fa-rocket-launch mr-2"></i>
+              Explore live storefront
+            </button>
+            <button class="ghost-btn text-base px-4 py-3 border-dashed">
+              <i class="fa-regular fa-file-code mr-2"></i>
+              Download static bundle
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 text-xs sm:text-sm text-slate-300">
+            <div class="inline-flex items-center gap-2">
+              <i class="fa-solid fa-bolt text-amber-300"></i>
+              <span>Zero backend lock-in</span>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <i class="fa-solid fa-layer-group text-brand-300"></i>
+              <span>3D cards &amp; parallax grids</span>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <i class="fa-solid fa-mouse-pointer text-fuchsia-300"></i>
+              <span>Antigravity mouse fields</span>
+            </div>
+            <div class="inline-flex items-center gap-2">
+              <i class="fa-solid fa-image text-emerald-300"></i>
+              <span>100+ curated hero images</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side: orbiting product field -->
+        <div class="relative h-[380px] sm:h-[420px] lg:h-[460px]">
+          <div class="absolute inset-0 rounded-[2rem] bg-slate-900/70 border border-white/10 backdrop-blur-xl shadow-[0_0_80px_rgba(45,212,191,0.25)] overflow-hidden">
+            <div class="absolute inset-0" id="antigravity-field" aria-hidden="true"></div>
+
+            <div class="absolute inset-x-6 top-5 flex items-center justify-between text-[11px] text-slate-300/80">
+              <span class="inline-flex items-center gap-1">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Live sessions: <strong class="font-semibold">2,483</strong>
+              </span>
+              <span>Latency &lt; 50ms · Edge cached</span>
+            </div>
+
+            <div class="absolute inset-x-0 bottom-0 pb-3 px-4 text-xs text-slate-300/90">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-medium tracking-tight">Realtime cart gravity</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-900/60 border border-white/10">Experimental</span>
+              </div>
+              <div class="h-1 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full w-3/4 bg-gradient-to-r from-brand-400 via-emerald-400 to-fuchsia-400 animate-loading-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating badges around hero -->
+      <div class="pointer-events-none" aria-hidden="true">
+        <div class="floating-pill pill-top-left">
+          <i class="fa-solid fa-warehouse mr-1.5"></i> B2B, D2C &amp; wholesale
+        </div>
+        <div class="floating-pill pill-top-right">
+          <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> Deploy to any CDN
+        </div>
+        <div class="floating-pill pill-bottom-left">
+          <i class="fa-solid fa-shield-halved mr-1.5"></i> Enterprise-grade front-end
+        </div>
+        <div class="floating-pill pill-bottom-right">
+          <i class="fa-solid fa-code-branch mr-1.5"></i> Hook your APIs later
+        </div>
+      </div>
+    </section>
+
+    <!-- Logos / trust -->
+    <section class="py-10 border-y border-white/5 bg-slate-950/80" id="sections">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-6 text-xs sm:text-sm text-slate-400">
+          <div class="font-medium text-slate-300 flex items-center gap-2">
+            Trusted layout shell for brands in
+          </div>
+          <div class="flex flex-wrap gap-6 sm:gap-8 lg:gap-10 text-slate-400/90">
+            <span class="inline-flex items-center gap-2"><span class="brand-dot bg-amber-300"></span>Electronics</span>
+            <span class="inline-flex items-center gap-2"><span class="brand-dot bg-emerald-300"></span>Fashion</span>
+            <span class="inline-flex items-center gap-2"><span class="brand-dot bg-sky-300"></span>Home &amp; living</span>
+            <span class="inline-flex items-center gap-2"><span class="brand-dot bg-pink-300"></span>Beauty</span>
+            <span class="inline-flex items-center gap-2"><span class="brand-dot bg-violet-300"></span>Industrial</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product category grid with 3D cards -->
+    <section class="py-16 sm:py-20 bg-slate-950" aria-labelledby="categories-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+          <div>
+            <h2 id="categories-heading" class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Curated layouts for any product line.</h2>
+            <p class="text-sm sm:text-base text-slate-300 max-w-2xl">
+              Mix and match hero modules, grids, and story sections for almost any catalog: electronics, apparel, SaaS subscriptions, physical goods, and more.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3 text-[11px] text-slate-300">
+            <span class="pill-chip"><i class="fa-solid fa-maximize mr-1"></i>Responsive-first</span>
+            <span class="pill-chip"><i class="fa-solid fa-palette mr-1"></i>Themeable tokens</span>
+            <span class="pill-chip"><i class="fa-solid fa-microchip mr-1"></i>Edge-cache ready</span>
+          </div>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Electronics -->
+          <article class="category-card tilt-card">
+            <div class="category-media category-electronics"></div>
+            <div class="category-body">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-semibold text-base">Electronics &amp; gadgets</h3>
+                <span class="badge">Popular</span>
+              </div>
+              <p class="text-sm text-slate-300 mb-4">
+                High-density grids with spec highlights, comparison cards, and animated callouts for new launches.
+              </p>
+              <div class="flex items-center justify-between text-[11px] text-slate-300/90">
+                <span class="inline-flex items-center gap-1"><i class="fa-solid fa-plug-circle-bolt text-brand-300"></i> Plug in any cart API</span>
+                <span>+40 preset layouts</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Fashion -->
+          <article class="category-card tilt-card">
+            <div class="category-media category-fashion"></div>
+            <div class="category-body">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-semibold text-base">Fashion &amp; lifestyle</h3>
+                <span class="badge badge-soft">Editorial</span>
+              </div>
+              <p class="text-sm text-slate-300 mb-4">
+                Edge-to-edge galleries, lookbooks, and story-driven landing pages with subtle parallax and hover reveals.
+              </p>
+              <div class="flex items-center justify-between text-[11px] text-slate-300/90">
+                <span class="inline-flex items-center gap-1"><i class="fa-solid fa-italic text-fuchsia-300"></i> Typography-focused</span>
+                <span>+28 story modules</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Industrial -->
+          <article class="category-card tilt-card">
+            <div class="category-media category-industrial"></div>
+            <div class="category-body">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-semibold text-base">Industrial &amp; wholesale</h3>
+                <span class="badge badge-wireframe">B2B</span>
+              </div>
+              <p class="text-sm text-slate-300 mb-4">
+                Dense spec sheets, RFQ flows, and tabbed comparison views with infinite-scroll product lists.
+              </p>
+              <div class="flex items-center justify-between text-[11px] text-slate-300/90">
+                <span class="inline-flex items-center gap-1"><i class="fa-solid fa-diagram-project text-emerald-300"></i> Hierarchical catalogs</span>
+                <span>ERP-ready front-end</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Global reach & live metrics -->
+    <section id="analytics" class="py-16 sm:py-20 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900 border-y border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-12 items-center">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">Visualize global customers in realtime.</h2>
+          <p class="text-sm sm:text-base text-slate-300 mb-6 max-w-xl">
+            A 3D-inspired, purely front-end activity map shows fictive orders pulsing across the globe. All powered by lightweight animations; ready for your telemetry API.
+          </p>
+
+          <dl class="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs sm:text-sm">
+            <div class="metric-card">
+              <dt>Simulated requests / min</dt>
+              <dd>148k</dd>
+            </div>
+            <div class="metric-card">
+              <dt>Regions reachable</dt>
+              <dd>190+</dd>
+            </div>
+            <div class="metric-card">
+              <dt>Static payload</dt>
+              <dd>&lt; 200KB</dd>
+            </div>
+            <div class="metric-card">
+              <dt>Core Web Vitals</dt>
+              <dd>A+ ready</dd>
+            </div>
+            <div class="metric-card">
+              <dt>Catalog size</dt>
+              <dd>100k+ SKUs</dd>
+            </div>
+            <div class="metric-card">
+              <dt>Integration</dt>
+              <dd>Any REST / GraphQL</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="relative h-[320px] sm:h-[360px] lg:h-[380px]">
+          <div class="world-panel" aria-hidden="true">
+            <div class="world-glow"></div>
+            <div class="world-map"></div>
+            <div id="world-pings" class="world-pings"></div>
+            <div class="world-orbit world-orbit-1"></div>
+            <div class="world-orbit world-orbit-2"></div>
+            <div class="world-orbit world-orbit-3"></div>
+            <div class="world-label">Live buyer sessions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Massive visual gallery (100+ images) -->
+    <section id="gallery" class="py-18 sm:py-20 bg-slate-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">A visual catalog that can keep up with your imagination.</h2>
+            <p class="text-sm sm:text-base text-slate-300 max-w-2xl">
+              Below is a generative grid powered by 100+ high-resolution product photographs loaded from Unsplash. Swap the URLs with your own CDN or DAM in seconds.
+            </p>
+          </div>
+          <div class="text-xs sm:text-sm text-slate-300 max-w-xs">
+            <p class="mb-1"><strong class="font-semibold">Tip</strong>: In production, replace the remote URLs with images from your own bucket or media pipeline.</p>
+            <p class="text-slate-500">This gallery is intentionally dense to stress-test scrolling performance and lazy-loading behavior.</p>
+          </div>
+        </div>
+
+        <div id="gallery-grid" class="gallery-grid" aria-label="Global product gallery"></div>
+      </div>
+    </section>
+
+    <!-- Company link channels -->
+    <section id="channels" class="py-16 sm:py-20 bg-gradient-to-b from-slate-950 to-slate-900 border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-10">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">Every channel your company needs, already wired visually.</h2>
+            <p class="text-sm sm:text-base text-slate-300 max-w-2xl">
+              Use these sections as ready-made link hubs to your internal tools: partner centers, APIs, docs, analytics, logistics, and more — all without changing the static hosting model.
+            </p>
+          </div>
+          <button class="primary-btn" data-magnetic>
+            <i class="fa-solid fa-link mr-2"></i>
+            Copy demo link layout
+          </button>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          <!-- Partner & reseller -->
+          <div class="link-card-grid">
+            <article class="link-card">
+              <div class="link-card-icon bg-gradient-to-tr from-emerald-400/80 to-brand-400/80">
+                <i class="fa-solid fa-handshake text-slate-950"></i>
+              </div>
+              <div>
+                <h3 class="link-card-title">Partner &amp; reseller portal</h3>
+                <p class="link-card-body">Onboard distributors, agencies, and white-label partners with a branded portal powered by static routes and your SSO provider.</p>
+                <div class="link-card-footer">
+                  <span><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> /partners</span>
+                  <span>SSO · deal reg · MDF</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="link-card">
+              <div class="link-card-icon bg-gradient-to-tr from-sky-400/80 to-indigo-400/80">
+                <i class="fa-solid fa-plug text-slate-950"></i>
+              </div>
+              <div>
+                <h3 class="link-card-title">Public APIs &amp; webhooks</h3>
+                <p class="link-card-body">Expose product, pricing, and inventory programmatically. Link to external API docs, Postman collections, and sandbox keys.</p>
+                <div class="link-card-footer">
+                  <span><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> api.yourbrand.com</span>
+                  <span>REST · GraphQL · webhooks</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="link-card">
+              <div class="link-card-icon bg-gradient-to-tr from-fuchsia-400/80 to-rose-400/80">
+                <i class="fa-solid fa-bullhorn text-slate-950"></i>
+              </div>
+              <div>
+                <h3 class="link-card-title">Campaign &amp; landing builder</h3>
+                <p class="link-card-body">Route seasonal campaigns, product drops, and influencer collaborations to purpose-built landing experiences.</p>
+                <div class="link-card-footer">
+                  <span><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> /campaigns</span>
+                  <span>UTM-aware · A/B ready</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="link-card">
+              <div class="link-card-icon bg-gradient-to-tr from-amber-300/80 to-orange-400/80">
+                <i class="fa-solid fa-truck-fast text-slate-950"></i>
+              </div>
+              <div>
+                <h3 class="link-card-title">Logistics &amp; fulfillment</h3>
+                <p class="link-card-body">Link customers and internal teams to shipment tracking, warehouse dashboards, and SLA documentation.</p>
+                <div class="link-card-footer">
+                  <span><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> /logistics</span>
+                  <span>3PL · customs · SLAs</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Support / docs / contact -->
+          <div class="flex flex-col gap-4">
+            <article class="link-column-card">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-sm font-semibold">Customer support</h3>
+                <span class="badge badge-soft"><i class="fa-solid fa-headset mr-1"></i>24 / 7</span>
+              </div>
+              <p class="text-sm text-slate-300 mb-3">Route users to chat, email, and phone, or integrate with third-party tools like Zendesk or Intercom.</p>
+              <div class="space-y-2 text-xs text-slate-300/90">
+                <div class="flex items-center justify-between">
+                  <span><i class="fa-solid fa-comments mr-1"></i> Live chat</span>
+                  <span class="text-slate-400">/support/chat</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span><i class="fa-solid fa-envelope-open-text mr-1"></i> Email ticketing</span>
+                  <span class="text-slate-400">support@yourbrand.com</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span><i class="fa-solid fa-book-open mr-1"></i> Knowledge base</span>
+                  <span class="text-slate-400">/help</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="link-column-card">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-sm font-semibold">Legal &amp; compliance</h3>
+                <span class="badge badge-wireframe">Static</span>
+              </div>
+              <p class="text-sm text-slate-300 mb-3">Terms, privacy, regional policies, and certifications — all served as ultra-fast static pages.</p>
+              <div class="flex flex-wrap gap-2 text-[11px] text-slate-300/90">
+                <span class="chip-link">/legal/terms</span>
+                <span class="chip-link">/legal/privacy</span>
+                <span class="chip-link">/legal/cookies</span>
+                <span class="chip-link">/legal/gdpr</span>
+                <span class="chip-link">/legal/certifications</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section id="contact" class="py-16 sm:py-20 bg-slate-900 border-t border-white/5 relative overflow-hidden">
+      <div class="contact-gradient" aria-hidden="true"></div>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="rounded-3xl border border-white/10 bg-slate-950/70 backdrop-blur-xl p-6 sm:p-8 lg:p-10 shadow-[0_0_80px_rgba(94,234,212,0.15)]">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div class="max-w-xl">
+              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Ready to attach your backend to a world-class storefront?</h2>
+              <p class="text-sm sm:text-base text-slate-300 mb-4">Drop this static bundle onto any CDN or object store, then progressively enhance with your existing APIs and commerce engines.</p>
+              <ul class="text-sm text-slate-300 space-y-1.5 mb-4">
+                <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i>Pure HTML, CSS, and JavaScript — no Node.js required at runtime.</li>
+                <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i>Optimized for edge deployment and static hosting providers.</li>
+                <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i>Cleanly structured for later integration with any API gateway.</li>
+              </ul>
+            </div>
+            <form class="w-full max-w-md space-y-3" novalidate>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="field-label" for="contact-name">Name</label>
+                  <input id="contact-name" type="text" class="field-input" placeholder="Alex Merchant" />
+                </div>
+                <div>
+                  <label class="field-label" for="contact-company">Company</label>
+                  <input id="contact-company" type="text" class="field-input" placeholder="Global Retail Inc." />
+                </div>
+              </div>
+              <div>
+                <label class="field-label" for="contact-email">Work email</label>
+                <input id="contact-email" type="email" class="field-input" placeholder="you@company.com" />
+              </div>
+              <div>
+                <label class="field-label" for="contact-volume">Monthly order volume</label>
+                <select id="contact-volume" class="field-input">
+                  <option value="" selected>Select range</option>
+                  <option>&lt; 1k orders</option>
+                  <option>1k – 10k orders</option>
+                  <option>10k – 100k orders</option>
+                  <option>&gt; 100k orders</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for="contact-notes">What do you want to build?</label>
+                <textarea id="contact-notes" rows="3" class="field-input resize-none" placeholder="Tell us about your products, tech stack, and launch timeline."></textarea>
+              </div>
+              <button type="button" class="primary-btn w-full justify-center" data-magnetic>
+                <i class="fa-solid fa-paper-plane mr-2"></i>
+                Generate integration checklist (static demo)
+              </button>
+              <p class="text-[11px] text-slate-400 text-center">
+                This form is a static demo; wire it to your favorite form provider, edge function, or CRM.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 bg-slate-950 py-8 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-slate-900 border border-white/10 text-[11px] font-semibold">G</span>
+        <span>GlobalSales Hub &middot; Static marketplace experience shell</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#hero" class="text-slate-300 hover:text-brand-300 transition">Back to top</a>
+        <span class="h-3 border-l border-white/10"></span>
+        <a href="#" class="hover:text-brand-300 transition flex items-center gap-1"><i class="fa-brands fa-github"></i> View source</a>
+        <a href="#" class="hover:text-brand-300 transition flex items-center gap-1"><i class="fa-brands fa-figma"></i> Figma kit</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Local scripts -->
+  <script src="scripts.js" defer></script>
+</body>
+</html>

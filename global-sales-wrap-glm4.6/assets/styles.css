@@ -1,0 +1,347 @@
+/* ============================================
+   Global Styles + Variables
+   ============================================ */
+:root {
+  --brand-primary: #1e92ff;
+  --brand-hover: #49b0ff;
+  --bg-dark: #020617;
+  --card-bg: rgba(15,23,42,0.6);
+  --border-light: rgba(255,255,255,0.1);
+  --shadow-glow: rgba(30,146,255,0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  background: var(--bg-dark);
+}
+
+::selection {
+  background: var(--brand-primary);
+  color: #fff;
+}
+
+/* ============================================
+   3D Canvas Background
+   ============================================ */
+#bg3d {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ============================================
+   Parallax Elements
+   ============================================ */
+.parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at 30% 30%, rgba(30,146,255,0.1), transparent 50%);
+  z-index: 0;
+}
+
+.parallax-2 {
+  background: radial-gradient(circle at 70% 70%, rgba(78,204,255,0.08), transparent 60%);
+}
+
+/* ============================================
+   Collection Cards (hover scale, 3D tilt)
+   ============================================ */
+.collection-card {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  height: 300px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+
+.collection-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.collection-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(30,146,255,0.4), 0 0 40px rgba(30,146,255,0.3);
+}
+
+.collection-card:hover img {
+  transform: scale(1.1);
+}
+
+.collection-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  transition: background 0.4s;
+}
+
+.collection-card:hover .overlay {
+  background: linear-gradient(to top, rgba(30,146,255,0.7), transparent);
+}
+
+/* ============================================
+   Product Cards (with hover + 3D)
+   ============================================ */
+.product-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s, border 0.3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.product-card:hover {
+  transform: translateY(-6px) rotateX(2deg);
+  box-shadow: 0 12px 40px rgba(30,146,255,0.4), 0 0 20px rgba(30,146,255,0.2);
+  border-color: var(--brand-primary);
+}
+
+.product-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.product-card:hover img {
+  transform: scale(1.08);
+}
+
+.product-card .info {
+  padding: 0.8rem;
+  color: #fff;
+}
+
+.product-card .info h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-card .info p {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================================
+   Partners
+   ============================================ */
+.partner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+}
+
+.partner:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(30,146,255,0.3);
+  border-color: var(--brand-primary);
+  color: #fff;
+}
+
+/* ============================================
+   Link Tiles
+   ============================================ */
+.link-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-light);
+  border-radius: 1rem;
+  padding: 1.8rem 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  gap: 0.5rem;
+}
+
+.link-tile i {
+  font-size: 1.8rem;
+  transition: transform 0.3s;
+}
+
+.link-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 40px rgba(30,146,255,0.4);
+  border-color: var(--brand-primary);
+  color: #fff;
+}
+
+.link-tile:hover i {
+  transform: scale(1.15);
+}
+
+/* ============================================
+   Form Inputs
+   ============================================ */
+.form-input {
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-light);
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.form-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(30,146,255,0.2);
+}
+
+.form-input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+/* ============================================
+   Anti-Gravity Container (Mouse Repel)
+   ============================================ */
+#antigravity {
+  position: relative;
+  perspective: 1200px;
+}
+
+#ag-items {
+  pointer-events: all;
+}
+
+.ag-item {
+  position: absolute;
+  border-radius: 50%;
+  transition: transform 0.15s ease-out, box-shadow 0.15s;
+  cursor: pointer;
+  background: radial-gradient(circle at 30% 30%, rgba(30,146,255,0.9), rgba(78,204,255,0.7));
+  box-shadow: 0 4px 20px rgba(30,146,255,0.6), inset 0 2px 8px rgba(255,255,255,0.3);
+}
+
+.ag-item:hover {
+  box-shadow: 0 6px 40px rgba(30,146,255,0.9), inset 0 2px 10px rgba(255,255,255,0.5);
+}
+
+/* ============================================
+   Scroll-Triggered Fade Animations (GSAP)
+   ============================================ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   Cursor Trail Effect
+   ============================================ */
+.cursor-trail {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,146,255,0.8), transparent);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transition: transform 0.1s ease-out;
+  animation: trailFade 0.6s ease-out forwards;
+}
+
+@keyframes trailFade {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   Responsive Utilities
+   ============================================ */
+@media (max-width: 768px) {
+  .collection-card {
+    height: 240px;
+  }
+}
+
+/* ============================================
+   Smooth Scrollbar Override (Lenis)
+   ============================================ */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

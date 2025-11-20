@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quantum Global Commerce — Everything, Everywhere</title>
+  <meta name="description" content="A stunning global product marketplace with advanced 3D visuals, smooth animations, and a massive curated catalog." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <!-- Libraries -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-0tQFZk1pG0k0F1v6z8g1F2kV7H3Y5I8c5bQmQ2Hnq0lU0WcK9o3H4q0B3a0I1QPgW2CkF6b3iZr8f5i8y1WnNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js" integrity="sha512-+v1zj1m4mGQw1j2h2y7dUo8Y6i5Wc3jLkYzXg+ZpZ6P9+gqgYx9M3oV3O3zZB7Z9r8i4sQ0N2rIuM8xkqv3wWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body class="bg-slate-950 text-white antialiased overflow-x-hidden">
+  <!-- Custom cursor -->
+  <div id="cursor" class="pointer-events-none fixed left-0 top-0 z-[9999]"><div class="cursor-core"></div></div>
+
+  <!-- Top nav -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md/60 bg-black/20 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 hover:opacity-90 transition-opacity">
+        <div class="w-8 h-8 rounded bg-gradient-to-tr from-cyan-400 to-fuchsia-500 animate-pulse-slow"></div>
+        <span class="font-extrabold tracking-tight">Quantum Global</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#catalog" class="nav-link">Catalog</a>
+        <a href="#solutions" class="nav-link">Solutions</a>
+        <a href="#partners" class="nav-link">Partners</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/20 border border-white/15">Contact</a>
+      </nav>
+      <button id="menuBtn" class="md:hidden p-2 rounded border border-white/15">Menu</button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="fixed inset-0 z-40 bg-black/80 backdrop-blur-xl opacity-0 pointer-events-none transition-opacity">
+    <div class="max-w-7xl mx-auto px-6 pt-24 flex flex-col gap-4 text-lg">
+      <a href="#catalog" class="mobile-link">Catalog</a>
+      <a href="#solutions" class="mobile-link">Solutions</a>
+      <a href="#partners" class="mobile-link">Partners</a>
+      <a href="#about" class="mobile-link">About</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+  </div>
+
+  <!-- Hero with Three.js background -->
+  <section class="relative min-h-[95vh] flex items-center" id="hero">
+    <canvas id="bg-canvas" class="absolute inset-0 w-full h-full"></canvas>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-40">
+      <div class="w-fit px-3 py-1 rounded-full border border-white/15 bg-white/5 text-xs mb-6 backdrop-blur">Global Marketplace</div>
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight">
+        Everything you can imagine, shipped anywhere.
+      </h1>
+      <p class="mt-6 max-w-2xl text-white/80 text-lg">
+        Explore millions of products with cinematic visuals and smooth interactions. Built for speed, reach, and delight.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#catalog" class="btn-primary">Explore Catalog</a>
+        <a href="#about" class="btn-secondary">Why Quantum Global</a>
+      </div>
+    </div>
+    <div class="absolute inset-0 z-0 pointer-events-none gradient-noise"></div>
+  </section>
+
+  <!-- Trusted logos marquee -->
+  <section class="relative py-14 border-t border-b border-white/10 bg-black/20">
+    <div class="marquee" aria-label="Trusted by partners">
+      <div class="marquee-inner">
+        <img src="https://picsum.photos/seed/logoa/140/48" alt="Logo" />
+        <img src="https://picsum.photos/seed/logob/160/48" alt="Logo" />
+        <img src="https://picsum.photos/seed/logoc/120/48" alt="Logo" />
+        <img src="https://picsum.photos/seed/logod/150/48" alt="Logo" />
+        <img src="https://picsum.photos/seed/logoe/130/48" alt="Logo" />
+        <img src="https://picsum.photos/seed/logof/140/48" alt="Logo" />
+        <img src="https://picsum.photos/seed/logog/150/48" alt="Logo" />
+        <img src="https://picsum.photos/seed/logoh/130/48" alt="Logo" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog with 100+ high-quality images -->
+  <section id="catalog" class="relative py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-end justify-between gap-4 mb-10">
+        <div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Featured Catalog</h2>
+          <p class="text-white/70 mt-2">Curated items across electronics, home, fashion, sports, and more.</p>
+        </div>
+        <div class="hidden sm:flex gap-2">
+          <button class="chip active">All</button>
+          <button class="chip">Electronics</button>
+          <button class="chip">Home</button>
+          <button class="chip">Fashion</button>
+          <button class="chip">Sports</button>
+        </div>
+      </div>
+      <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- Solutions (cards with 3D tilt) -->
+  <section id="solutions" class="relative py-24 border-t border-white/10 bg-gradient-to-b from-slate-950 to-slate-900/40">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-12">Solutions for Scale</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="solution-card">
+          <h3>Cross-border Logistics</h3>
+          <p>Optimized routing and smart customs automation for faster delivery worldwide.</p>
+        </div>
+        <div class="solution-card">
+          <h3>AI Merchandising</h3>
+          <p>Personalized recommendations and dynamic pricing for maximum conversion.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Payments & Risk</h3>
+          <p>Global payments orchestration with built-in fraud detection and chargeback defense.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section id="partners" class="relative py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-12">Partners & Channels</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="p-6 rounded-xl border border-white/10 bg-white/5">
+          <h3 class="text-xl font-bold mb-3">Sales Channels</h3>
+          <ul class="list-disc list-inside text-white/80 space-y-1">
+            <li>Direct-to-Consumer</li>
+            <li>Marketplace Integrations (Amazon, eBay, Alibaba)</li>
+            <li>Wholesale & B2B Portals</li>
+            <li>Affiliate & Influencer Programs</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-xl border border-white/10 bg-white/5">
+          <h3 class="text-xl font-bold mb-3">Contact & Company Links</h3>
+          <ul class="grid grid-cols-2 gap-2 text-sm">
+            <li><a class="link" href="#contact">Contact</a></li>
+            <li><a class="link" href="#about">About Us</a></li>
+            <li><a class="link" href="#careers">Careers</a></li>
+            <li><a class="link" href="#press">Press</a></li>
+            <li><a class="link" href="#investors">Investors</a></li>
+            <li><a class="link" href="#support">Support</a></li>
+            <li><a class="link" href="#privacy">Privacy</a></li>
+            <li><a class="link" href="#terms">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="relative py-24 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10">
+      <div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6">We build delightful global commerce</h2>
+        <p class="text-white/80">Quantum Global is a fictional yet ambitious company focused on connecting products to people, everywhere. This site demonstrates advanced front-end visuals without any backend dependencies.</p>
+        <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <div class="stat">
+            <span class="stat-num">190+</span>
+            <span class="stat-label">Countries shipped</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">1M+</span>
+            <span class="stat-label">Products indexed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">99.99%</span>
+            <span class="stat-label">Uptime</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">250ms</span>
+            <span class="stat-label">P95 latency</span>
+          </div>
+        </div>
+      </div>
+      <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 aspect-video">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop" alt="Team" class="w-full h-full object-cover opacity-90">
+        <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-fuchsia-500/10 mix-blend-screen"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="relative py-24">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
+        <h2 class="text-3xl font-extrabold tracking-tight mb-6">Get in touch</h2>
+        <form class="grid sm:grid-cols-2 gap-4" onsubmit="event.preventDefault(); alert('Thanks! This is a static demo.');">
+          <input class="field" placeholder="Full name" required />
+          <input class="field" placeholder="Email" type="email" required />
+          <input class="field sm:col-span-2" placeholder="Company" />
+          <textarea class="field sm:col-span-2" placeholder="Tell us about your needs" rows="4"></textarea>
+          <button class="btn-primary sm:col-span-2">Send message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative py-12 border-t border-white/10 bg-black/30">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-gradient-to-tr from-cyan-400 to-fuchsia-500"></div>
+          <strong>Quantum Global</strong>
+        </div>
+        <p class="text-white/70">© <span id="year"></span> Quantum Global Commerce, Inc. All rights reserved.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <div class="foot-head">Company</div>
+          <ul class="space-y-1">
+            <li><a class="link" href="#about">About</a></li>
+            <li><a class="link" href="#careers">Careers</a></li>
+            <li><a class="link" href="#press">Press</a></li>
+            <li><a class="link" href="#investors">Investors</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="foot-head">Resources</div>
+          <ul class="space-y-1">
+            <li><a class="link" href="#support">Support</a></li>
+            <li><a class="link" href="#privacy">Privacy</a></li>
+            <li><a class="link" href="#terms">Terms</a></li>
+            <li><a class="link" href="#sitemap">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="foot-head">Follow</div>
+        <div class="flex gap-3 mt-2">
+          <a class="social" href="#" aria-label="Twitter">Twitter</a>
+          <a class="social" href="#" aria-label="LinkedIn">LinkedIn</a>
+          <a class="social" href="#" aria-label="YouTube">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

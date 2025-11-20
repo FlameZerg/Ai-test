@@ -1,0 +1,379 @@
+/* ===================================
+   RESPONSIVE STYLES
+   Mobile-first approach
+   =================================== */
+
+/* ===================================
+   BASE MOBILE (< 768px)
+   =================================== */
+
+/* Mobile navigation */
+@media (max-width: 767px) {
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        flex-direction: column;
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 2rem;
+        gap: 1.5rem;
+        transition: left 0.3s ease;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Hero section */
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .hero-visual {
+        display: none;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+    }
+
+    .btn-hero {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Features */
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Products */
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-filters {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+    }
+
+    .filter-btn {
+        white-space: nowrap;
+    }
+
+    /* Contact */
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    /* About */
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .about-visual {
+        height: 300px;
+    }
+
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .legal-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Reduce effects on mobile */
+    #bg-canvas,
+    #particles-canvas {
+        display: none;
+    }
+
+    .floating-card {
+        display: none;
+    }
+
+    .cursor,
+    .cursor-follower {
+        display: none;
+    }
+
+    body {
+        cursor: auto;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select {
+        cursor: pointer;
+    }
+}
+
+/* ===================================
+   TABLET (768px - 1023px)
+   =================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 0 2rem;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .hero-visual {
+        display: none;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-content {
+        gap: 2rem;
+    }
+}
+
+/* ===================================
+   DESKTOP (1024px - 1439px)
+   =================================== */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===================================
+   LARGE DESKTOP (>= 1440px)
+   =================================== */
+
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ===================================
+   ULTRA-WIDE (>= 1920px)
+   =================================== */
+
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+
+    h1 {
+        font-size: 5rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* ===================================
+   TOUCH DEVICES
+   =================================== */
+
+@media (hover: none) and (pointer: coarse) {
+
+    /* Disable hover effects on touch devices */
+    .product-card:hover,
+    .feature-card:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .nav-link:hover {
+        transform: none;
+    }
+
+    /* Larger touch targets */
+    .btn-primary,
+    .btn-secondary,
+    .nav-link,
+    .filter-btn {
+        min-height: 44px;
+        padding: 0.875rem 1.5rem;
+    }
+
+    /* Disable cursor effects */
+    .cursor,
+    .cursor-follower {
+        display: none;
+    }
+
+    body {
+        cursor: auto;
+    }
+}
+
+/* ===================================
+   REDUCED MOTION
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .hero-background {
+        animation: none;
+    }
+
+    .floating-card {
+        animation: none;
+    }
+
+    #particles-canvas {
+        display: none;
+    }
+}
+
+/* ===================================
+   DARK MODE (System Preference)
+   =================================== */
+
+@media (prefers-color-scheme: light) {
+    /* Override for light mode if needed */
+    /* Currently designed for dark mode only */
+}
+
+/* ===================================
+   PRINT STYLES
+   =================================== */
+
+@media print {
+
+    #bg-canvas,
+    #particles-canvas,
+    .cursor,
+    .cursor-follower,
+    .nav-main,
+    .scroll-indicator,
+    .floating-card {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    .hero,
+    .features,
+    .products,
+    .about,
+    .contact {
+        page-break-inside: avoid;
+    }
+}
+
+/* ===================================
+   HIGH CONTRAST MODE
+   =================================== */
+
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #ffffff;
+        --text-secondary: #e0e0e0;
+        --bg-primary: #000000;
+        --bg-secondary: #1a1a1a;
+    }
+
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-primary {
+        border: 2px solid white;
+    }
+}
+
+/* ===================================
+   LANDSCAPE MOBILE
+   =================================== */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 6rem 0 3rem;
+    }
+
+    .hero-stats {
+        margin-top: 2rem;
+    }
+
+    section {
+        padding: 3rem 0;
+    }
+}

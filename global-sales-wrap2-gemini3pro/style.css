@@ -1,0 +1,100 @@
+/* Global Reset & Base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #0f172a; /* Fallback */
+    cursor: none; /* Custom cursor */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Physics Elements */
+.physics-item {
+    position: absolute;
+    user-select: none;
+    /* Prevent default drag behavior to allow Matter.js to handle it */
+    touch-action: none;
+    will-change: transform;
+    /* Default styling for items */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.physics-item:hover {
+    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.3);
+    z-index: 100; /* Bring to front on hover */
+}
+
+.product-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    pointer-events: none; /* Let the container handle events */
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+}
+
+/* Navigation/Category Pills */
+.nav-pill {
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* 3D Tilt Effect specific CSS if needed, usually handled by JS but helper classes good */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+/* Cursor Logic */
+@media (max-width: 768px) {
+    body {
+        cursor: auto;
+    }
+}
+
+/* Loading Animation */
+.loader {
+    border: 3px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    border-top: 3px solid #3b82f6;
+    width: 24px;
+    height: 24px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

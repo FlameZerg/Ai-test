@@ -1,0 +1,63 @@
+/* style.css */
+/* Global styles and custom effects */
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Mouse-follow gradient */
+#mouse-gradient {
+  transition: background-position 0.1s ease-out;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(14,165,233,0.3), rgba(245,158,11,0.2), transparent);
+  background-size: 200% 200%;
+}
+
+/* Hero canvas for Three.js */
+#hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Product card placeholder */
+.product-card {
+  background: #1f2937; /* gray-800 */
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+}
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.product-card .info {
+  padding: 1rem;
+}
+.product-card .info h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #fff;
+}
+.product-card .info p {
+  margin-top: 0.5rem;
+  color: #d1d5db; /* gray-300 */
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive utilities (Tailwind will handle most) */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2.5rem; }
+}

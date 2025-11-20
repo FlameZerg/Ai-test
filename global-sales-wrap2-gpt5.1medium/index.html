@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GlobalFlow Commerce — Elevating Products Worldwide</title>
+    <meta name="description" content="A next‑generation global product sales platform with immersive 3D interactions and breathtaking visuals." />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CDN (no build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#050816',
+                        primary: '#38bdf8',
+                        accent: '#a855f7',
+                        soft: '#94a3b8',
+                    },
+                    boxShadow: {
+                        glow: '0 0 40px rgba(56,189,248,0.6)',
+                    },
+                },
+            },
+        };
+    </script>
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- External libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
+</head>
+<body class="bg-dark text-slate-100 antialiased overflow-x-hidden">
+    <!-- Custom cursor -->
+    <div id="cursor-core"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- Canvas background (for subtle 3D starfield) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="relative min-h-screen flex flex-col" id="app-root">
+        <!-- Navigation -->
+        <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl bg-gradient-to-b from-black/70 via-black/40 to-transparent border-b border-white/10">
+            <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-primary to-accent flex items-center justify-center shadow-glow">
+                        <span class="font-display text-lg tracking-tight">GF</span>
+                    </div>
+                    <div>
+                        <p class="font-display text-sm uppercase tracking-[0.2em] text-soft">GlobalFlow</p>
+                        <p class="text-xs text-slate-400">Antigravity Commerce Cloud</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-8 text-sm">
+                    <a href="#hero" class="nav-link">Overview</a>
+                    <a href="#categories" class="nav-link">Categories</a>
+                    <a href="#featured" class="nav-link">Featured</a>
+                    <a href="#gallery" class="nav-link">Visual Grid</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button class="btn-ghost hidden sm:inline-flex" data-magnetic>
+                        <span>Log in</span>
+                    </button>
+                    <button class="btn-primary" data-magnetic>
+                        <span>Book a Demo</span>
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main class="flex-1">
+            <!-- HERO -->
+            <section id="hero" class="pt-28 pb-24 lg:pt-32 lg:pb-32 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 lg:px-8 grid lg:grid-cols-[1.2fr,minmax(0,1fr)] gap-14 items-center">
+                    <!-- Copy -->
+                    <div class="relative z-10 space-y-10">
+                        <div class="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-white/5 px-3 py-1 text-xs text-slate-300 backdrop-blur-md hero-pill">
+                            <span class="inline-block h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+                            <span>Live in 140+ countries · One unified experience</span>
+                        </div>
+                        <div>
+                            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-tight tracking-tight">
+                                Gravity-defying
+                                <span class="bg-gradient-to-r from-primary via-sky-300 to-accent bg-clip-text text-transparent">global sales</span>
+                                for every product.
+                            </h1>
+                            <p class="mt-6 text-slate-300 text-base sm:text-lg max-w-xl">
+                                GlobalFlow turns any catalog into an immersive, physics-bending showroom.
+                                Launch in hours, sell in 140+ markets, and let your products float into customers' hands.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-4">
+                            <button class="btn-primary text-base px-6 py-3" data-magnetic>
+                                Start free global trial
+                            </button>
+                            <button class="btn-outline text-base px-5 py-3" data-magnetic>
+                                Explore interactive catalog
+                            </button>
+                            <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-400">
+                                <div class="flex -space-x-2">
+                                    <span class="avatar-ring"></span>
+                                    <span class="avatar-ring"></span>
+                                    <span class="avatar-ring"></span>
+                                </div>
+                                <span>Trusted by teams in SF, Berlin, Tokyo & more</span>
+                            </div>
+                        </div>
+                        <dl class="grid grid-cols-3 gap-4 max-w-lg text-xs sm:text-sm text-slate-300">
+                            <div>
+                                <dt class="font-medium text-slate-100">99.99% uptime</dt>
+                                <dd class="text-slate-500">Global routing mesh</dd>
+                            </div>
+                            <div>
+                                <dt class="font-medium text-slate-100">+32% AOV</dt>
+                                <dd class="text-slate-500">Immersive 3D journeys</dd>
+                            </div>
+                            <div>
+                                <dt class="font-medium text-slate-100"><span class="counter" data-target="140">0</span>+ markets</dt>
+                                <dd class="text-slate-500">Localized at launch</dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- 3D / interactive hero cluster -->
+                    <div class="relative z-10">
+                        <div class="hero-orbit pointer-events-none" aria-hidden="true"></div>
+                        <div class="hero-stack" data-tilt-container>
+                            <div class="hero-layer hero-layer-back floating" data-float-depth="4">
+                                <div class="layer-grid"></div>
+                            </div>
+                            <div class="hero-layer hero-layer-middle floating" data-float-depth="2">
+                                <div class="floating-badges">
+                                    <div class="badge-pill">Global logistics mesh</div>
+                                    <div class="badge-pill">Local currency. Local trust.</div>
+                                    <div class="badge-pill">Carbon-neutral fulfillment</div>
+                                </div>
+                            </div>
+                            <article class="hero-card floating" data-float-depth="1">
+                                <header class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Live control room</p>
+                                        <h2 class="font-display text-lg">Today7s global lift</h2>
+                                    </div>
+                                    <span class="rounded-full bg-emerald-500/15 text-emerald-300 text-[11px] px-2 py-1 border border-emerald-500/40">+18.4%</span>
+                                </header>
+                                <div class="grid grid-cols-2 gap-4 text-xs">
+                                    <div class="stat-tile">
+                                        <p class="text-slate-400">Real-time shoppers</p>
+                                        <p class="font-display text-xl">8,421</p>
+                                        <p class="text-emerald-300 text-[11px] mt-1">+312 vs last hour</p>
+                                    </div>
+                                    <div class="stat-tile">
+                                        <p class="text-slate-400">In-orbit SKUs</p>
+                                        <p class="font-display text-xl">143,220</p>
+                                        <p class="text-slate-500 text-[11px] mt-1">Across 18 categories</p>
+                                    </div>
+                                    <div class="stat-tile col-span-2">
+                                        <p class="text-slate-400 mb-1">Conversion orbit</p>
+                                        <div class="orbit-strip">
+                                            <span class="orbit-dot"></span>
+                                            <span class="orbit-dot"></span>
+                                            <span class="orbit-dot"></span>
+                                            <span class="orbit-dot"></span>
+                                            <span class="orbit-dot"></span>
+                                        </div>
+                                        <p class="mt-2 text-[11px] text-slate-500">Antigravity layout test #27 · 92.1% significance</p>
+                                    </div>
+                                </div>
+                                <footer class="mt-4 flex items-center justify-between text-[11px] text-slate-500">
+                                    <div class="flex items-center gap-2">
+                                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/5 border border-white/10 text-[10px]">AI</span>
+                                        <span>Orbit Engine auto-routes traffic between regions.</span>
+                                    </div>
+                                    <button class="link-pill" data-magnetic>Open console</button>
+                                </footer>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CATEGORIES -->
+            <section id="categories" class="py-20 lg:py-24 relative overflow-hidden">
+                <div class="section-glow"></div>
+                <div class="max-w-7xl mx-auto px-4 lg:px-8">
+                    <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+                        <div>
+                            <p class="eyebrow">Infinite catalog</p>
+                            <h2 class="section-title">Sell any product orbit on a single surface.</h2>
+                        </div>
+                        <p class="max-w-xl text-sm sm:text-base text-slate-300">
+                            From consumer electronics to luxury fashion, industrial components, and digital goods,
+                            GlobalFlow unifies your product space with localized pricing, tax, and compliance baked in.
+                        </p>
+                    </header>
+                    <div class="grid gap-6 md:grid-cols-3">
+                        <article class="category-card floating" data-float-depth="2">
+                            <h3>Everyday Essentials</h3>
+                            <p>CPG, home, beauty, and food brands ready for same-day fulfillment in 40+ hubs.</p>
+                            <ul>
+                                <li>On-shelf in <strong>under 2 weeks</strong></li>
+                                <li>Automated replenishment</li>
+                                <li>Localized compliance packs</li>
+                            </ul>
+                        </article>
+                        <article class="category-card floating" data-float-depth="1">
+                            <h3>High-velocity Tech</h3>
+                            <p>Devices, accessories, and components synced with live inventory and repair networks.</p>
+                            <ul>
+                                <li>Serial-level tracking</li>
+                                <li>Co-branded micro-stores</li>
+                                <li>Dynamic bundles and upsells</li>
+                            </ul>
+                        </article>
+                        <article class="category-card floating" data-float-depth="3">
+                            <h3>Luxury & Beyond</h3>
+                            <p>Curated digital showrooms with cinematic storytelling and white-glove delivery.</p>
+                            <ul>
+                                <li>Virtual stylists & appointments</li>
+                                <li>Vault-grade authentication</li>
+                                <li>Carbon-aware routing</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FEATURED PRODUCTS (cards with antigravity feel) -->
+            <section id="featured" class="py-20 lg:py-24 relative">
+                <div class="max-w-7xl mx-auto px-4 lg:px-8 space-y-10">
+                    <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                        <div>
+                            <p class="eyebrow">Flagship inventory</p>
+                            <h2 class="section-title">Feature anything. Wed27ll keep it in orbit.</h2>
+                        </div>
+                        <div class="flex flex-wrap gap-4 text-xs sm:text-sm text-slate-300">
+                            <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur">
+                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span>Real-time stock sync</span>
+                            </div>
+                            <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur">
+                                <span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+                                <span>Multi-region pricing</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="grid gap-6 md:grid-cols-3" id="featured-grid">
+                        <!-- Sample product cards; images handled by JS gallery as well -->
+                        <article class="product-card" data-product="Orbital Headphones">
+                            <div class="product-media"></div>
+                            <div class="product-body">
+                                <h3>Orbital Headphones Pro</h3>
+                                <p>Spatial audio tuned for both Earth and orbit. Zero-cable, zero-gravity.</p>
+                                <div class="flex items-center justify-between text-xs mt-3">
+                                    <span class="text-slate-400">Ships from 12 hubs</span>
+                                    <span class="font-semibold text-sky-300">$299</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="product-card" data-product="Lumen Desk">
+                            <div class="product-media"></div>
+                            <div class="product-body">
+                                <h3>Lumen Elevate Desk</h3>
+                                <p>Adaptive workstation that floats your tools into perfect reach with a touch.</p>
+                                <div class="flex items-center justify-between text-xs mt-3">
+                                    <span class="text-slate-400">Smart freight routing</span>
+                                    <span class="font-semibold text-emerald-300">$1,280</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="product-card" data-product="Nova Sneakers">
+                            <div class="product-media"></div>
+                            <div class="product-body">
+                                <h3>Nova Kinetic Sneakers</h3>
+                                <p>Motion-energy soles that charge your devices while you move.</p>
+                                <div class="flex items-center justify-between text-xs mt-3">
+                                    <span class="text-slate-400">Drop model ready</span>
+                                    <span class="font-semibold text-fuchsia-300">$220</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MASSIVE IMAGE GRID / VISUAL GALLERY -->
+            <section id="gallery" class="py-20 lg:py-24 relative overflow-hidden">
+                <div class="section-glow section-glow-large"></div>
+                <div class="max-w-7xl mx-auto px-0 lg:px-4">
+                    <header class="px-4 lg:px-8 mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                        <div>
+                            <p class="eyebrow">Immersive gallery</p>
+                            <h2 class="section-title max-w-xl">A universe of products, rendered in motion.</h2>
+                        </div>
+                        <p class="max-w-xl text-sm sm:text-base text-slate-300 px-4 md:px-0">
+                            Below is a living mosaic of products sourced from our demo catalog. Each tile responds to your
+                            movement and scroll, simulating the feeling of browsing in zero gravity.
+                        </p>
+                    </header>
+
+                    <div id="image-gallery" class="image-gallery"></div>
+                </div>
+            </section>
+
+            <!-- TRUST / STATS -->
+            <section id="trust" class="py-16 lg:py-20 relative">
+                <div class="max-w-7xl mx-auto px-4 lg:px-8 grid md:grid-cols-[1.1fr,0.9fr] gap-10 items-center">
+                    <div>
+                        <p class="eyebrow">Signal, not noise</p>
+                        <h2 class="section-title">Operations tuned for light-speed commerce.</h2>
+                        <p class="mt-4 text-slate-300 text-sm sm:text-base">
+                            From FX hedging and tax to returns orchestration and AI merchandising, GlobalFlow abstracts
+                            the complexity of cross-border commerce so your teams can focus on brand, product, and story.
+                        </p>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-200">
+                            <li>· Global SLA with 24/7 multilingual support.</li>
+                            <li>· ISO 27001 and SOC 2 aligned security layers.</li>
+                            <li>· Native integrations with major ERPs and storefronts.</li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-xs sm:text-sm">
+                        <div class="metric-card">
+                            <p class="label">Average load time</p>
+                            <p class="value">1.1s</p>
+                            <p class="hint">Global static edges with smart hydration.</p>
+                        </div>
+                        <div class="metric-card">
+                            <p class="label">Cart recovery</p>
+                            <p class="value">+19%</p>
+                            <p class="hint">Localized nudges and payment options.</p>
+                        </div>
+                        <div class="metric-card">
+                            <p class="label">Return automation</p>
+                            <p class="value">84%</p>
+                            <p class="hint">Self-serve flows and smart routing.</p>
+                        </div>
+                        <div class="metric-card">
+                            <p class="label">Time to launch</p>
+                            <p class="value">< 30d</p>
+                            <p class="hint">Prebuilt playbooks and blueprints.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT / COMPANY CHANNELS -->
+            <section id="contact" class="py-20 lg:py-24 relative border-t border-white/10 bg-black/30">
+                <div class="max-w-7xl mx-auto px-4 lg:px-8 grid lg:grid-cols-[1.1fr,0.9fr] gap-12">
+                    <div>
+                        <p class="eyebrow">Talk to humans & APIs</p>
+                        <h2 class="section-title">All channels open, all the time.</h2>
+                        <p class="mt-4 text-slate-300 text-sm sm:text-base max-w-xl">
+                            Whether you prefer Slack, email, or carrier pigeons, our teams answer in hours—not days.
+                            Pick the lane that works for your operators and we will mirror it.
+                        </p>
+
+                        <div class="mt-8 grid gap-4 sm:grid-cols-2 text-sm">
+                            <div class="channel-card">
+                                <h3>Sales</h3>
+                                <p>Strategic guidance, pricing, and implementation planning.</p>
+                                <a href="mailto:sales@globalflow.com" class="channel-link">sales@globalflow.com</a>
+                                <p class="subtext">Response within 24 hours worldwide.</p>
+                            </div>
+                            <div class="channel-card">
+                                <h3>Support</h3>
+                                <p>24/7 issue resolution with multilingual specialists.</p>
+                                <a href="mailto:support@globalflow.com" class="channel-link">support@globalflow.com</a>
+                                <p class="subtext">Enterprise incident bridge under 15 minutes.</p>
+                            </div>
+                            <div class="channel-card">
+                                <h3>Partnerships</h3>
+                                <p>Integrations, co-marketing, and channel alliances.</p>
+                                <a href="mailto:partners@globalflow.com" class="channel-link">partners@globalflow.com</a>
+                                <p class="subtext">Dedicated partner managers in 8 regions.</p>
+                            </div>
+                            <div class="channel-card">
+                                <h3>Careers</h3>
+                                <p>Build the future of gravity-free commerce with us.</p>
+                                <a href="mailto:careers@globalflow.com" class="channel-link">careers@globalflow.com</a>
+                                <p class="subtext">Fully-remote & hub-based roles.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-300">
+                            <span class="text-slate-400">Or meet us where you already are:</span>
+                            <div class="flex flex-wrap gap-2">
+                                <a href="#" class="social-pill" aria-label="Visit our LinkedIn">LinkedIn</a>
+                                <a href="#" class="social-pill" aria-label="Visit our X / Twitter">X / Twitter</a>
+                                <a href="#" class="social-pill" aria-label="Visit our YouTube">YouTube</a>
+                                <a href="#" class="social-pill" aria-label="Visit our WeChat">WeChat</a>
+                                <a href="#" class="social-pill" aria-label="Visit our WhatsApp">WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-panel">
+                        <h3 class="font-display text-xl mb-4">Launch request</h3>
+                        <p class="text-sm text-slate-300 mb-6">
+                            Share a few signals and we will spin up a tailored launch map, including tax, payments,
+                            logistics, and CX.
+                        </p>
+                        <form id="contact-form" class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="form-label" for="name">Full name</label>
+                                    <input id="name" name="name" type="text" class="form-input" placeholder="Alex Rivera" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="company">Company</label>
+                                    <input id="company" name="company" type="text" class="form-input" placeholder="Orbital Goods Inc." />
+                                </div>
+                            </div>
+                            <div class="grid sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="form-label" for="email">Work email</label>
+                                    <input id="email" name="email" type="email" class="form-input" placeholder="you@company.com" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="region">Primary region</label>
+                                    <select id="region" name="region" class="form-input">
+                                        <option>North America</option>
+                                        <option>Europe</option>
+                                        <option>LATAM</option>
+                                        <option>APAC</option>
+                                        <option>Middle East & Africa</option>
+                                        <option>Global / mixed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label" for="volume">Projected annual volume</label>
+                                <select id="volume" name="volume" class="form-input">
+                                    <option>< $10M</option>
+                                    <option>$10M–$50M</option>
+                                    <option>$50M–$250M</option>
+                                    <option>$250M–$1B</option>
+                                    <option>> $1B</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="message">Anything else?</label>
+                                <textarea id="message" name="message" rows="3" class="form-input" placeholder="Tell us about your catalog, tech stack, and go-live timeline."></textarea>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 text-xs text-slate-400">
+                                <label class="inline-flex items-center gap-2">
+                                    <input type="checkbox" class="h-3.5 w-3.5 rounded border-white/20 bg-black/40" checked />
+                                    <span>Email me best-practice launch playbooks.</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn-primary w-full justify-center" data-magnetic>
+                                Submit launch request
+                            </button>
+                            <p class="mt-2 text-[11px] text-slate-500">
+                                We will only use your details to contact you about GlobalFlow. No spam, ever.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-white/10 py-6 bg-black/60 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto px-4 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+                <div class="flex items-center gap-2">
+                    <span class="font-display text-sm tracking-[0.2em] uppercase text-slate-300">GlobalFlow</span>
+                    <span class="h-1 w-1 rounded-full bg-slate-500"></span>
+                    <span>Antigravity commerce interface.</span>
+                </div>
+                <div class="flex flex-wrap gap-4 items-center">
+                    <a href="#" class="hover:text-slate-100 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-slate-100 transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-slate-100 transition-colors">Status</a>
+                    <span class="text-slate-500">© <span id="year"></span> GlobalFlow Commerce, Inc.</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Main scripts -->
+    <script src="./script.js"></script>
+</body>
+</html>

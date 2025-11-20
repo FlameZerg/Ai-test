@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar */
+body {
+    overflow: hidden;
+    cursor: none; /* Custom cursor */
+}
+
+/* Custom Cursor */
+#cursor {
+    pointer-events: none;
+}
+
+/* Product Card Styling */
+.product-card {
+    position: absolute;
+    will-change: transform, top, left;
+    /* Initial state */
+    top: 0;
+    left: 0;
+    user-select: none;
+    
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    
+    border-radius: 12px;
+    overflow: hidden;
+    
+    /* Transition for hover effects (when not in physics mode, or overlay) */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.product-card:hover {
+    border-color: rgba(64, 196, 255, 0.5);
+    box-shadow: 0 0 20px rgba(64, 196, 255, 0.2);
+    z-index: 100;
+}
+
+.product-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.product-info {
+    padding: 10px;
+}
+
+.product-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-price {
+    color: #4fc3f7;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+/* Canvas for trails */
+#trail-canvas {
+    mix-blend-mode: screen;
+}
+
+/* 3D Tilt Effect helper class */
+.tilt-3d {
+    transform-style: preserve-3d;
+}

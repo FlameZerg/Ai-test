@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f0f;
+    overflow: hidden;
+}
+
+#scene-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* Physics Items */
+.physics-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+    /* Important to center the transform origin so rotation works as expected with Matter.js */
+    transform-origin: 50% 50%;
+    user-select: none;
+    /* Initial hidden state until loaded */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    /* 3D helper */
+    backface-visibility: hidden;
+}
+
+.physics-item.loaded {
+    opacity: 1;
+}
+
+/* Card Styles */
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    border-color: #00f0ff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    z-index: 100; /* Temporarily boost z-index on hover if possible, though physics handles layering */
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none; /* Let the card capture events */
+}
+
+/* Cursor Effects */
+body:hover #cursor-follower {
+    transform: scale(1);
+}
+body:active #cursor-follower {
+    transform: scale(0.8);
+}
