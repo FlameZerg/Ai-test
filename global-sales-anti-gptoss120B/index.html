@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Sales Showcase</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-gray-900 text-white overflow-x-hidden" data-theme="dark">
+  <!-- Header -->
+  <header class="p-6 text-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
+    <h1 class="text-4xl font-extrabold">Global Product Marketplace</h1>
+  </header>
+
+  <!-- Hero Section with 3D Globe -->
+  <section class="relative h-screen flex items-center justify-center">
+    <canvas id="globeCanvas" class="absolute inset-0 w-full h-full"></canvas>
+    <div class="relative z-10 text-center">
+      <h2 class="text-3xl font-bold mb-4">Explore the World of Products</h2>
+      <p class="text-lg">Hover, scroll and discover</p>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <section class="p-8">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Featured Products</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- 100 placeholder images -->
+      <!-- We'll generate them via JS; placeholder markup for fallback -->
+      <script>
+        const grid = document.currentScript.parentElement;
+        for (let i = 1; i <= 100; i++) {
+          const img = document.createElement('img');
+          img.src = `https://picsum.photos/seed/${i}/400/300`;
+          img.alt = `Product ${i}`;
+          img.className = 'w-full h-auto rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105';
+          const wrapper = document.createElement('div');
+          wrapper.className = 'bg-gray-800 p-2 rounded-lg';
+          wrapper.appendChild(img);
+          grid.appendChild(wrapper);
+        }
+      </script>
+    </div>
+  </section>
+
+  <!-- Footer with contact links -->
+  <footer class="p-6 bg-gray-800 text-center">
+    <div class="flex justify-center space-x-4 mb-4">
+      <a href="#" class="hover:text-indigo-400">Contact Us</a>
+      <a href="#" class="hover:text-indigo-400">Privacy Policy</a>
+      <a href="#" class="hover:text-indigo-400">Terms of Service</a>
+    </div>
+    <p class="text-sm">© 2025 Global Sales Inc.</p>
+  </footer>
+
+  <script src="assets/js/three-scene.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
